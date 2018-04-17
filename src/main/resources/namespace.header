@@ -1,0 +1,35 @@
+#########################
+### generator section ###
+#########################
+
+## Default configuration (run the jar with command line)
+pojo_directory = generated_pojos
+query_directory = generated_query
+target_directory = generated_model/src/main/java
+
+target_package = be.cetic.ors.ontologybinding.generated
+
+serialization = application/json
+#serialization = application/xml
+
+## Netbeans configuration
+#pojo_directory = target/generated_pojos
+#query_directory = target/generated_query
+#target_directory = target/generated_model/src/main/java
+
+#################################
+### RDF configuration section ###
+#################################
+
+# Ontology header -> Label configuration (which field must be associated with the label (http://www.w3.org/2000/01/rdf-schema))
+rdfs_label.value = description
+rdfs_label.language = language
+
+# Namespace convertor
+# Return the corresponding URI for a variable or for a class
+#
+#If nothing is specified, it returns defaultNamespace + # + nameOfTheClass / nameOfTheVariable
+#   To specify a corresponding URI for a class, just specify the package + class Name
+#   To specify a corresponding URI for a attribute, specify the package of the class + className + "-" + nameOfTheVariable
+
+defaultNamespace = ${namespace}

@@ -53,3 +53,6 @@ NOTE: Class names of POJOS must follow the java class name conventions and rules
 
 ## 6 Known issues
 
+1. When loading a new ontology on top of an already loaded one in the same window, the plugin will keep the values (namespace, package name, file directory etc)  of the previous ontology. This will cause a problem later in ORS if an incorrect namespace property is used. Edit the namespce textbox to make sure it has the correct value or for automatic refreshing of the values choose to open the new ontology in new window when prompted.
+2. When generating the pojos using reasoner you may encounter an exception due to a data property or object property is subclass of topDataProperty or topObjectProperty respectively. Remove this subPropertyOf value.
+

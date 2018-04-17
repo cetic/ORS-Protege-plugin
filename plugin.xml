@@ -5,9 +5,9 @@
     <extension
     	id="menu.code.generateowlcode" 
     	point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Generate Java code for ORS..."/>
+        <name value="Generate ORS Java model..."/>
         <class value="org.protege.editor.owl.codegeneration.GenerateProtegeOwlJavaCodeAction"/>
-        <toolTip value="Generate Java code from the active ontology for the ORS tool"/>
+        <toolTip value="Generate ORS code from the active ontology"/>
         <path value="org.protege.editor.owl.menu.tools/SlotH-A"/>
         <editorKitId value="OWLEditorKit"/>
     </extension>

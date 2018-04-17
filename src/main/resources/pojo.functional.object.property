@@ -1,0 +1,14 @@
+
+    /* ***************************************************
+     * Object Property ${propertyIri}
+     */
+    ${propertyRange} ${owlProperty};
+
+    public ${propertyRange} get${OwlProperty}() {
+        return this.${owlProperty};
+    }
+
+    public void set${OwlProperty}(${propertyRange} value) {
+         this.${owlProperty}=value;
+    }
+

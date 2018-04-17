@@ -1,0 +1,19 @@
+
+    /* ***************************************************
+     * Data Property ${propertyIri}
+     * Range: ${propertyRange}
+     * Range for class: ${propertyRangeForClass}
+     * Range for impl: ${propertyRangeImplementation}
+     */
+     
+    ${propertyRangeForClass} ${owlProperty};
+
+    public ${propertyRangeForClass} get${OwlProperty}() {
+		return this.${owlProperty};
+    }
+
+    public void  set${OwlProperty}(${propertyRangeForClass} value) {
+		this.${owlProperty}=value;
+    }
+
+

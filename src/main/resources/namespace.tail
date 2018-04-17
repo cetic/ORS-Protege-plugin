@@ -1,0 +1,6 @@
+###################################
+### database connection section ###
+# Not used at the moment          #
+###################################
+
+name = fuseki
