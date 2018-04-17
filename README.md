@@ -44,12 +44,13 @@ Deploy it by copying the jar file into Protege's plugin directory
  
 ## 5 Using the plugin
 
+TODO
 
-NOTE: Class names of POJOS must follow the java class name conventions and rules (for example cannot use reserved java names). If conventions and rules are not followed the POJOs will not be used correctly in the generated project or not at all! This is likely to affect the names used in XSD schema elements or OWL classes.
+NOTE: Class names of POJOS must follow the java class name conventions and rules (for example cannot use reserved java names). Thus OWL Classes ideally should also follow the same convetions. If conventions and rules are not followed the POJOs will not be used correctly in the generated ORS project or not at all!
 
 ### 5.1 Parameters and Configuration
 
-
+TODO
 
 ## 6 Known issues
 
