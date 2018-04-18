@@ -1,0 +1,14 @@
+.classpath
+.project
+.settings/
+.idea/
+build.properties
+tags
+classes.eclipse/
+META-INF/
+src/test/resources/catalog-v001.xml
+target/
+test-output/
+*.iml
+.DS_store
+doc
