@@ -2,10 +2,13 @@ package org.protege.owl.codegeneration;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -62,5 +65,18 @@ public class Utilities {
 		}
 		return false;
 	}
+
+
+    public static Collection<OWLClass> findSubClasses(OWLClass parent, OWLOntology ontology){
+        ArrayList<OWLClass> classList = new ArrayList<OWLClass>();
+        //for (OWLClassExpression clsxp:parent.getSubClasses(ontology)){
+        for (org.semanticweb.owlapi.model.OWLSubClassOfAxiom definingAxiom : ontology.getSubClassAxiomsForSuperClass(parent)) {
+			OWLClassExpression subclass = definingAxiom.getSubClass();
+			//if (!superClass.equals(top)) {
+            classList.add(subclass.asOWLClass());
+        }
+        return classList;
+    }
+
 
 }

@@ -6,13 +6,13 @@
      * Range for impl: ${propertyRangeImplementation}
      */
      
-    ${propertyRangeForClass} ${owlProperty};
+    ${propertyRange} ${owlProperty};
 
-    public ${propertyRangeForClass} get${OwlProperty}() {
+    public ${propertyRange} get${OwlProperty}() {
 		return this.${owlProperty};
     }
 
-    public void  set${OwlProperty}(${propertyRangeForClass} value) {
+    public void  set${OwlProperty}(${propertyRange} value) {
 		this.${owlProperty}=value;
     }
 

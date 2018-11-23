@@ -1,0 +1,2 @@
+ cd target
+ java -jar code-generation-ORS-0.3-jar-with-dependencies.jar -o generated -p be.cetic.ors.ontologybinding test-classes/caseV2.owl

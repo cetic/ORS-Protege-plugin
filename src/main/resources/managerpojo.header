@@ -1,0 +1,10 @@
+package ${package}.manager;
+
+import  be.cetic.ors.ontologybinding.generic.exception.ResourceNotFoundException;
+
+
+/**
+ * Generated class.
+ */
+public enum Enum${interfaceName} {
+

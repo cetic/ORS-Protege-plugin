@@ -1,0 +1,11 @@
+                 OntProperty property4${owlProperty} = mgt.getPropertyByName(ontClass, "${owlProperty}");
+                 if (pojo.get${OwlProperty}()!= null) {
+                     mgt.setReplaceMode(true);
+                      try{
+                          mgt.rdfStore${propertyRange}(pojo.get${OwlProperty}());
+                      } catch (Exception e){
+                          throw new ResourceNotFoundException(e.getMessage());
+                      }
+                     mgt.setObjectProperty(property4${owlProperty},pojo.get${OwlProperty}().getId());
+                     mgt.setReplaceMode(storeState);
+                 }

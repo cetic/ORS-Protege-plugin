@@ -1,0 +1,77 @@
+package ${package}.model;
+ 
+import ${package}.pojo.*;
+//import ${package}.*;
+import ${package}.${interfaceName};
+import org.protege.owl.codegeneration.WrappedIndividual;
+import org.protege.owl.codegeneration.pojo.WrappedIndividualPojo;
+import org.apache.jena.ontology.Individual;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.RDFVisitor;
+import org.apache.jena.rdf.model.AnonId;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.NodeIterator;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.ArrayList;
+import java.net.URI;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+
+import java.util.logging.Level;
+//import javax.xml.datatype.DatatypeConfigurationException;
+//import javax.xml.datatype.DatatypeFactory;
+ 
+ /**
+  * Generated class.
+  */
+ public class Model${interfaceName} extends ModelWrappedIndividual {
+   //  protected Individual individual;
+     public final static String URI = "${classIri}";
+     public static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("Model${interfaceName}");
+ 
+     /**
+      * Creates a new Model${interfaceName}.
+      */
+     public Model${interfaceName}(Individual idv)
+         throws IOException
+     {
+         super(idv);
+     }
+ 
+     public ${pojoName}  toModel()
+         throws IOException
+     {
+
+         RDFVisitor rdfVisitor = new RDFVisitor() {
+
+             @Override
+                 public Object visitURI(Resource r, String uri) {
+                     logger.info("RDFVisitor ----> "+uri);
+                     return uri;
+                 }
+
+             @Override
+                 public Object visitLiteral(Literal l) {
+                     logger.info("RDFVisitor ----> "+l);
+                     return l.getLexicalForm();
+                 }
+
+             @Override
+                 public Object visitBlank(Resource r, AnonId id) {
+                     logger.info("RDFVisitor ----> blank node "+id);
+                     return id.getLabelString();
+                 }
+         };
+
+         ${pojoName} instance = new ${pojoName}();
+         OntModel ont = individual.getOntModel();
+         if (individual.getURI()!=null)instance.setId(individual.getURI());
+         else return null;
+           //  instance.setId(individual.getId().toString());
+
+         WrappedIndividualPojo superinstance=super.toModel(); 
+

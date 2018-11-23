@@ -1,0 +1,35 @@
+    ${OWLClass}("${classIri}", "${package}.pojo.${pojoName}", "${interfaceName}");
+    private final String uri;
+    private final String className;
+    private final String name;
+
+    private Enum${interfaceName}(String uri, String className, String name) {
+        this.uri = uri;
+        this.className = className;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public static Enum${interfaceName} getResourceByClassName(String classPackageName)
+        throws ResourceNotFoundException
+        {
+            for (int i = 0; (i<values().length); i += 1) {
+                if (values()[i].getClassName().equals(classPackageName)) {
+                    return values()[i];
+                }
+            }
+            throw new ResourceNotFoundException("The requested resource modelClassPath doesn't exist or is not yet configurated");
+        }
+}
+

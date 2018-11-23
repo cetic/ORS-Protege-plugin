@@ -1,0 +1,765 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://case.example.org/core#"
+     xml:base="http://case.example.org/core"
+     xmlns:codegen="http://protege.org/code#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:case="http://case.example.org/core#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <owl:Ontology rdf:about="http://case.example.org/core">
+        <owl:priorVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</owl:priorVersion>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.1</owl:versionInfo>
+        <dc:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cyber-investigation Analysis Schema Expression (CASE)</dc:title>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://case.example.org/core#item -->
+
+    <owl:AnnotationProperty rdf:about="http://case.example.org/core#item">
+        <rdfs:range rdf:resource="http://case.example.org/core#Item"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/title"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/source -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/source"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#maxQualifiedCardinality -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#maxQualifiedCardinality"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#duration -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#duration"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://case.example.org/core#content -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#content">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Bundle"/>
+        <rdfs:range rdf:resource="http://case.example.org/core#UcoObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#createdBy -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#createdBy">
+        <rdfs:domain rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:range rdf:resource="http://case.example.org/core#Identity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#endAction -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#endAction">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#forensicActions -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#forensicActions">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#investigator -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#investigator">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#object -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#object">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+        <rdfs:range rdf:resource="http://case.example.org/core#UcoObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#propertyBundle -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#propertyBundle">
+        <rdfs:domain rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:range rdf:resource="http://case.example.org/core#PropertyBundle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#startAction -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#startAction">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://case.example.org/core#victim -->
+
+    <owl:ObjectProperty rdf:about="http://case.example.org/core#victim">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://case.example.org/core#country -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#country">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#SimpleAddress"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#createdTime -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#createdTime">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#description -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#description">
+        <rdfs:domain rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#focus -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#focus">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#latitude -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#latitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#LatLongCoordinates"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#locality -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#locality">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#SimpleAddress"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#longitude -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#longitude">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#LatLongCoordinates"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#name -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#name">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The name property defines a common word or phrase that describes the meaning of the object.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#postalCode -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#postalCode">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#SimpleAddress"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#region -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#region">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#SimpleAddress"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#specVersion -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#specVersion">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#street -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#street">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://case.example.org/core#SimpleAddress"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#suspectedOffense -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#suspectedOffense">
+        <rdfs:domain rdf:resource="http://case.example.org/core#Investigation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#type -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#type">
+        <rdfs:domain rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>A cyber-relevant concept. This is the base object defining the minimal core set of properties to act as a consistent, unifying and interoperable foundation for all explicit and interrelateable content objects within the Unified Cyber Ontology (uco).</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://case.example.org/core#value -->
+
+    <owl:DatatypeProperty rdf:about="http://case.example.org/core#value">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://case.example.org/core#Bundle -->
+
+    <owl:Class rdf:about="http://case.example.org/core#Bundle">
+        <rdfs:subClassOf rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:comment>A contained compilation of UCO content with no presumption of shared context.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#Identity -->
+
+    <owl:Class rdf:about="http://case.example.org/core#Identity">
+        <rdfs:subClassOf rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:comment>Characterization of the identifying properties of an individual or organization.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#Investigation -->
+
+    <owl:Class rdf:about="http://case.example.org/core#Investigation">
+        <rdfs:subClassOf rdf:resource="http://case.example.org/core#UcoObject"/>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#LatLongCoordinates -->
+
+    <owl:Class rdf:about="http://case.example.org/core#LatLongCoordinates">
+        <rdfs:subClassOf rdf:resource="http://case.example.org/core#PropertyBundle"/>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#Location -->
+
+    <owl:Class rdf:about="http://case.example.org/core#Location">
+        <rdfs:subClassOf rdf:resource="http://case.example.org/core#UcoObject"/>
+        <rdfs:comment>A geophysical place, site or position.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#PropertyBundle -->
+
+    <owl:Class rdf:about="http://case.example.org/core#PropertyBundle">
+        <rdfs:comment>A grouping of properties characterizing a particular aspect/facet of an object.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#SimpleAddress -->
+
+    <owl:Class rdf:about="http://case.example.org/core#SimpleAddress">
+        <rdfs:subClassOf rdf:resource="http://case.example.org/core#PropertyBundle"/>
+    </owl:Class>
+    
+
+
+    <!-- http://case.example.org/core#UcoObject -->
+
+    <owl:Class rdf:about="http://case.example.org/core#UcoObject">
+        <rdfs:comment>A cyber-relevant concept. This is the base object defining the minmal core set of properties to act as a consistent, unifying and interoperable foundation to all explicit and interrelateable content objects within the Unified Cyber Onotology (uco).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://case.example.org/core#AES -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#AES"/>
+    
+
+
+    <!-- http://case.example.org/core#BDE -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#BDE">
+        <rdfs:comment>The Bitlocker Drive Encryption (BDE) credentials.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://case.example.org/core#BMP -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#BMP"/>
+    
+
+
+    <!-- http://case.example.org/core#BZIP2 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#BZIP2"/>
+    
+
+
+    <!-- http://case.example.org/core#Base16 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Base16"/>
+    
+
+
+    <!-- http://case.example.org/core#Base32 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Base32"/>
+    
+
+
+    <!-- http://case.example.org/core#Base64 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Base64"/>
+    
+
+
+    <!-- http://case.example.org/core#BigEndian -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#BigEndian"/>
+    
+
+
+    <!-- http://case.example.org/core#Blowfish -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Blowfish"/>
+    
+
+
+    <!-- http://case.example.org/core#CBC -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#CBC"/>
+    
+
+
+    <!-- http://case.example.org/core#CFB -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#CFB"/>
+    
+
+
+    <!-- http://case.example.org/core#CPIO -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#CPIO"/>
+    
+
+
+    <!-- http://case.example.org/core#Critical -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Critical"/>
+    
+
+
+    <!-- http://case.example.org/core#DES -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#DES"/>
+    
+
+
+    <!-- http://case.example.org/core#DES3 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#DES3"/>
+    
+
+
+    <!-- http://case.example.org/core#Debug -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Debug"/>
+    
+
+
+    <!-- http://case.example.org/core#Deflate -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Deflate"/>
+    
+
+
+    <!-- http://case.example.org/core#ECB -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#ECB"/>
+    
+
+
+    <!-- http://case.example.org/core#EWF -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#EWF"/>
+    
+
+
+    <!-- http://case.example.org/core#EXT4 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#EXT4"/>
+    
+
+
+    <!-- http://case.example.org/core#English -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#English"/>
+    
+
+
+    <!-- http://case.example.org/core#Error -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Error"/>
+    
+
+
+    <!-- http://case.example.org/core#F2FS -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#F2FS"/>
+    
+
+
+    <!-- http://case.example.org/core#French -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#French"/>
+    
+
+
+    <!-- http://case.example.org/core#GZIP -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#GZIP"/>
+    
+
+
+    <!-- http://case.example.org/core#HFS -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#HFS"/>
+    
+
+
+    <!-- http://case.example.org/core#Huffman -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Huffman"/>
+    
+
+
+    <!-- http://case.example.org/core#Info -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Info"/>
+    
+
+
+    <!-- http://case.example.org/core#JPEG -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#JPEG"/>
+    
+
+
+    <!-- http://case.example.org/core#LVM -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#LVM"/>
+    
+
+
+    <!-- http://case.example.org/core#LZMA -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#LZMA"/>
+    
+
+
+    <!-- http://case.example.org/core#LZW -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#LZW"/>
+    
+
+
+    <!-- http://case.example.org/core#LittleEndian -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#LittleEndian"/>
+    
+
+
+    <!-- http://case.example.org/core#MD5 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#MD5"/>
+    
+
+
+    <!-- http://case.example.org/core#NTFS -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#NTFS"/>
+    
+
+
+    <!-- http://case.example.org/core#OFB -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#OFB"/>
+    
+
+
+    <!-- http://case.example.org/core#PNG -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#PNG"/>
+    
+
+
+    <!-- http://case.example.org/core#Private -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Private"/>
+    
+
+
+    <!-- http://case.example.org/core#Public -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Public"/>
+    
+
+
+    <!-- http://case.example.org/core#QCOW -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#QCOW"/>
+    
+
+
+    <!-- http://case.example.org/core#RAW -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#RAW"/>
+    
+
+
+    <!-- http://case.example.org/core#RC4 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#RC4"/>
+    
+
+
+    <!-- http://case.example.org/core#SHA -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#SHA"/>
+    
+
+
+    <!-- http://case.example.org/core#SHA-1 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#SHA-1"/>
+    
+
+
+    <!-- http://case.example.org/core#SHA-2 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#SHA-2"/>
+    
+
+
+    <!-- http://case.example.org/core#SHA256 -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#SHA256"/>
+    
+
+
+    <!-- http://case.example.org/core#SevenZ -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#SevenZ"/>
+    
+
+
+    <!-- http://case.example.org/core#Spanish -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Spanish"/>
+    
+
+
+    <!-- http://case.example.org/core#TAR -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#TAR"/>
+    
+
+
+    <!-- http://case.example.org/core#TIFF -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#TIFF"/>
+    
+
+
+    <!-- http://case.example.org/core#VHDI -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#VHDI"/>
+    
+
+
+    <!-- http://case.example.org/core#VMDK -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#VMDK"/>
+    
+
+
+    <!-- http://case.example.org/core#VSSVolume -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#VSSVolume"/>
+    
+
+
+    <!-- http://case.example.org/core#Warning -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#Warning"/>
+    
+
+
+    <!-- http://case.example.org/core#WebP -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#WebP"/>
+    
+
+
+    <!-- http://case.example.org/core#XZ -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#XZ"/>
+    
+
+
+    <!-- http://case.example.org/core#ZIP -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#ZIP"/>
+    
+
+
+    <!-- http://case.example.org/core#ZLIB -->
+
+    <owl:NamedIndividual rdf:about="http://case.example.org/core#ZLIB"/>
+    <rdf:Description>
+        <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

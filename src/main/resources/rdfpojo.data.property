@@ -1,0 +1,7 @@
+                 Collection<${propertyRangeForClass}> ${owlProperty}s = pojo.get${OwlProperty}();
+                     OntProperty property4${owlProperty} = mgt.getPropertyByName(ontClass, "${owlProperty}");
+                     if (mgt.getReplaceMode())mgt.resetLiteralProperty(property4${owlProperty});
+                 for (${propertyRangeForClass} ${owlProperty}Value:${owlProperty}s){
+                     //OntProperty property4${owlProperty} = mgt.getPropertyByName(ontClass, "${owlProperty}");
+                     mgt.addLiteralProperty(property4${owlProperty}, ""+${owlProperty}Value);
+                 }

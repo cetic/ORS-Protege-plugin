@@ -1,0 +1,7 @@
+{ name: "WrappedIndividual", iri:"${namespace}WrappedIndividual", 
+    properties: [
+        { name: "id", type:"uri"}
+        ]
+        
+}
+]

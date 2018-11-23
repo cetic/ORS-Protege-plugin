@@ -1,0 +1,24 @@
+    /*public ArrayList<${package}.${interfaceName}> rdfRetrieve${interfaceName}s(String uri, String id)
+        throws Exception
+    {
+        SerializerManager serializerManager = new SerializerManager(uri);
+        return serializerManager.${interfaceName}ToModel(id);
+    }*/
+
+
+    public void delete${interfaceName}(String id) throws ResourceNotFoundException, IOException
+    {
+         //${interfaceName}RDF.delete(uri, id);
+          //rdfmgt.setOntModel(uri);
+          this.setIndividual(id,this.createClass("${classIri}") );
+          this.removeIndividual(id);
+          this.putModel();
+    }
+    
+    public String rdfStore${interfaceName}( ${package}.${interfaceName} rootClassArgument) throws ResourceNotFoundException, ClassURIException, IOException, SerializationAnalysisException
+    {
+        String idCreated;
+        idCreated = "Error";
+        //${package}.generated.manager.
+        Enum${interfaceName} enumVar = Enum${interfaceName}.getResourceByClassName(rootClassArgument.getClass().getName());
+        switch (enumVar) {

@@ -28,6 +28,9 @@ import org.semanticweb.owlapi.util.OWLEntityRemover;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
+import java.util.Collection;
+import java.util.ArrayList;
+
 /**
  * @author z.khan
  * 
@@ -37,20 +40,53 @@ public class WrappedIndividualImpl implements WrappedIndividual {
     private OWLOntology owlOntology;
     private OWLNamedIndividual owlIndividual;
     private CodeGenerationHelper delegate;
+    private Collection<String> type; //=new ArrayList<String>();
+
+
     
     /**Constructor
      * @param inference
      * @param iri
      */
     public WrappedIndividualImpl(CodeGenerationInference inference, IRI iri) {
-        this(inference, inference.getOWLOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(iri));
+        if (inference!=null) {
+            this.owlOntology = inference.getOWLOntology();
+            this.owlIndividual = inference.getOWLOntology().getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(iri);
+            delegate = new CodeGenerationHelper(inference);
+        }
+        type=new ArrayList<String>();
     }
     
     public WrappedIndividualImpl(CodeGenerationInference inference, OWLNamedIndividual owlIndividual) {
-        this.owlOntology = inference.getOWLOntology();
-        this.owlIndividual = owlIndividual;
-        delegate = new CodeGenerationHelper(inference);
+        if (inference!=null) {
+            this.owlOntology = inference.getOWLOntology();
+            this.owlIndividual = owlIndividual;
+            delegate = new CodeGenerationHelper(inference);
+        }
+        type=new ArrayList<String>();
     }
+
+
+      public Collection<String> getType(){
+          return type;
+      }
+
+      public void setType(Collection<String> type){
+          this.type=type;
+      }
+
+        String id;
+      public String getId() {
+          return id;
+      }
+
+
+      public void setId(String newId) {
+          this.id=newId;
+      }
+
+
+
  
     /**
      * @return the owlOntology

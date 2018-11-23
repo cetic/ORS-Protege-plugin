@@ -15,7 +15,22 @@ public abstract class AbstractCodeGenerationNames implements CodeGenerationNames
     }
 
     public String getPOJOName(OWLClass owlClass) {
-        return getInterfaceName(owlClass);
+        return getInterfaceName(owlClass)+"Pojo";
     }
 
+    public String getRSPOJOName(OWLClass owlClass) {
+        return "Rest" + getInterfaceName(owlClass);
+    }
+
+    public String getRDFPOJOName(OWLClass owlClass) {
+        return getInterfaceName(owlClass)+"RDF";
+    }
+
+    public String getMODELPOJOName(OWLClass owlClass) {
+        return "Model" + getInterfaceName(owlClass);
+    }
+
+    public String getMANAGERPOJOName(OWLClass owlClass) {
+        return "Enum" + getInterfaceName(owlClass);
+    }
 }

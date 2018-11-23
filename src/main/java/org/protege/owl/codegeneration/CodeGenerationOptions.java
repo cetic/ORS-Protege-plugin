@@ -8,7 +8,17 @@ import java.io.File;
  */
 public class CodeGenerationOptions {
 
+    private String GeneratedCodePackage = PACKAGE_ORS;
+
     private String javaCodePackage = PACKAGE_DEFAULT;
+
+    private String javaRSCodePackage = PACKAGE_RS;
+
+    private String javaRDFCodePackage = PACKAGE_RDF;
+
+    private String javaModelCodePackage = PACKAGE_MODEL;
+
+    private String javaManagerCodePackage = PACKAGE_MANAGER;
 
     private String ontologyNamespace = ONTOLOGY_NAMESPACE;
 
@@ -27,6 +37,16 @@ public class CodeGenerationOptions {
     public final static String FILE_NAME_DEFAULT = "";
 
     public final static String PACKAGE_DEFAULT = null;
+
+    public final static String PACKAGE_ORS = "be.cetic.ors.ontologybinding.generated";
+
+    public final static String PACKAGE_RS = PACKAGE_ORS+".rs" ;
+
+    public final static String PACKAGE_MANAGER = PACKAGE_ORS+".manager" ;
+
+    public final static String PACKAGE_MODEL = PACKAGE_ORS+".model" ;
+
+    public final static String PACKAGE_RDF = PACKAGE_ORS+".rdf" ;
 
     public final static String ONTOLOGY_NAMESPACE = null;
     
@@ -51,6 +71,13 @@ public class CodeGenerationOptions {
             value = PACKAGE_DEFAULT;
         }
         javaCodePackage = value;
+    }
+
+    public void setRSPackage(String value) {
+        if (value == null || value.trim().length() == 0) {
+            value = PACKAGE_RS;
+        }
+        javaRSCodePackage = value;
     }
 
     public void setNamespace(String value) {
@@ -80,10 +107,26 @@ public class CodeGenerationOptions {
         return javaCodePackage;
     }
 
+    public String getRSPackage() {
+        return javaRSCodePackage;
+    }
+
+    public String getModelPackage() {
+        return javaModelCodePackage;
+    }
+
+    public String getRDFPackage() {
+        return javaRDFCodePackage;
+    }
+
+    public String getManagerPackage() {
+        return javaManagerCodePackage;
+    }
+
     public String getNamespace() {
         return ontologyNamespace;
     }
-    
+
     public String getFactorySubPackage() {
 		return factorySubPackage;
 	}
@@ -96,8 +139,16 @@ public class CodeGenerationOptions {
     	return getFactoryLikeFqn(Constants.VOCABULARY_CLASS_NAME);
     }
 
+    public String getStorageMgtFqn() {
+        return getManagerPackage()+"."+Constants.STORAGEMGT_CLASS_NAME;
+    }
+
     public String getNamespaceFile() {
     	return Constants.NAMESPACE_FILE_NAME;
+    }
+
+    public String getAppconfigFile() {
+    	return Constants.APPCONFIG_FILE_NAME;
     }
     
     public String getFactoryFqn() {

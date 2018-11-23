@@ -1,0 +1,28 @@
+
+   public ArrayList<${package}.${interfaceName}> ${interfaceName}ToModel(String id) 
+        throws Exception
+         {
+             //ArrayList<${package}.${interfaceName}> resourceList = new ArrayList<${package}.${interfaceName}>();
+             ArrayList<${package}.${interfaceName}> resourceList = new ArrayList<>();
+             OntClass typeClass = this.getOntModel().getOntClass(Model${interfaceName}.URI);
+             if (typeClass == null) {
+                 typeClass = this.getOntModel().createClass(Model${interfaceName}.URI);
+                 logger.info(Model${interfaceName}.URI);
+             }
+             if (typeClass == null) {
+                 return resourceList;
+             }
+
+            ExtendedIterator<? extends OntResource> typeClassIt = typeClass.listInstances(false);
+            ExtendedIterator<OntProperty> properties = typeClass.listDeclaredProperties(false);
+            logger.info(properties.toList().toString());
+            while (typeClassIt.hasNext()) {
+                OntResource ontResource = typeClassIt.next();
+                ${pojoName} resource = new Model${interfaceName}(ontResource.asIndividual()).toModel();
+                if ((id == null)||ontResource.hasURI(id)) { 
+                    resourceList.add(resource);
+                }
+            }
+            return resourceList;
+         }
+

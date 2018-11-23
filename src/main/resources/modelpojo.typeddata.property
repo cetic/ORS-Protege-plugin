@@ -1,0 +1,25 @@
+/*        RDFNode ${owlProperty} = individual.getPropertyValue(ont.createOntProperty("${propertyIri}"));
+         if (${owlProperty}!= null) {
+             try {
+                 instance.set${OwlProperty}(${owlProperty}.asLiteral().get${propertyRangeModel}());
+             } catch (final Exception ex) {
+                 logger.log(Level.WARNING, "Error ", ex);
+             }
+         }*/
+
+           NodeIterator ${owlProperty}Iter = individual.listPropertyValues(
+             ont.createOntProperty("${propertyIri}"));
+             //ont.createOntProperty("${owlProperty}"));
+
+          while (${owlProperty}Iter.hasNext()){
+              try{ 
+                  RDFNode node=${owlProperty}Iter.next();
+
+                  //Object v= node.visitWith(rdfVisitor);
+                  instance.get${OwlProperty}().add((${propertyRangeForClass})node.asLiteral().get${propertyRangeModel}());
+             } catch (final Exception ex) {
+                 logger.log(Level.WARNING, "Error ", ex);
+             }
+          }
+
+

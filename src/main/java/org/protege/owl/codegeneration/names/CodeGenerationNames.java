@@ -8,6 +8,14 @@ public interface CodeGenerationNames {
 
 	String getPOJOName(OWLClass owlClass);
 	
+	String getRSPOJOName(OWLClass owlClass);
+	
+	String getRDFPOJOName(OWLClass owlClass);
+
+	String getMODELPOJOName(OWLClass owlClass);
+
+	String getMANAGERPOJOName(OWLClass owlClass);
+
 	String getImplementationName(OWLClass owlClass);
 		
 	String getInterfaceName(OWLClass owlClass);

@@ -1,0 +1,60 @@
+package ${package}.model;
+
+import java.io.IOException;
+import be.cetic.ors.ontologybinding.generic.exception.ResourceNotFoundException;
+import java.util.ArrayList;
+import be.cetic.ors.ontologybinding.generic.ToDBManager;
+import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntResource;
+import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.util.iterator.ExtendedIterator;
+//import org.protege.owl.codegeneration.
+import ${package}.pojo.*;
+import ${package}.*;
+ import org.protege.owl.codegeneration.WrappedIndividual;
+
+/**
+ * Generated class.
+ */
+public class SerializerManager extends be.cetic.ors.ontologybinding.generic.ToDBManager {
+     public static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("SerializerManager");
+
+     public SerializerManager()
+         throws IOException
+     {
+     }
+
+     public SerializerManager(String uri)
+         throws IOException, ResourceNotFoundException
+     {
+         super(uri);
+     }
+
+     public ArrayList<WrappedIndividual> WrappedIndividualToModel(/*String uri,*/ String id) throws Exception
+          {
+              //ArrayList<WrappedIndividual> resourceList = new ArrayList<WrappedIndividual>();
+              ArrayList<WrappedIndividual> resourceList = new ArrayList<>();
+              //this.setOntModel(uri);
+              OntClass typeClass = this.getOntModel().getOntClass(ModelWrappedIndividual.URI);
+              if (typeClass == null) {
+                  typeClass = this.getOntModel().createClass(ModelWrappedIndividual.URI);
+                  logger.info(ModelWrappedIndividual.URI);
+              }
+              if (typeClass == null) {
+                  return resourceList;
+              }
+              ExtendedIterator<? extends OntResource> typeClassIt = typeClass.listInstances(false);
+              ExtendedIterator<OntProperty> properties = typeClass.listDeclaredProperties(false);
+              logger.info(properties.toList().toString());
+              while (typeClassIt.hasNext()) {
+                  OntResource ontResource = typeClassIt.next();
+                  WrappedIndividual resource = new ModelWrappedIndividual(ontResource.asIndividual()).toModel();
+                  if ((id == null)||ontResource.hasURI(id)) {
+                      resourceList.add(resource);
+                  }
+              }
+              return resourceList;
+          }
+
+

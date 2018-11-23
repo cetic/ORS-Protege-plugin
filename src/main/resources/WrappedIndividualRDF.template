@@ -1,0 +1,61 @@
+package ${package}.rdf;
+
+import java.io.IOException;
+import be.cetic.ors.ontologybinding.generic.ToDBManager;
+import be.cetic.ors.ontologybinding.generic.exception.ClassURIException;
+import be.cetic.ors.ontologybinding.generic.exception.ResourceNotFoundException;
+import be.cetic.ors.ontologybinding.generic.exception.SerializationAnalysisException;
+//import be.cetic.ors.owl.codegeneration.WrappedIndividual;
+//import ${package}.pojo.WrappedIndividual;
+import org.protege.owl.codegeneration.WrappedIndividual;
+import org.apache.jena.ontology.OntClass;
+
+
+/**
+ * Generated class.
+ */
+public class WrappedIndividualRDF
+    extends ToDBManager
+{
+    public final String URI = "${namespace}WrappedIndividual";
+
+    /**
+     * Creates a new WrappedIndividualRDF.
+     */
+    public WrappedIndividualRDF()
+        throws IOException
+    {
+    }
+
+     //Get or Create class
+      public OntClass createClass(){
+          OntClass ontClass = (this.getOntModel().getOntClass(URI));
+          if (ontClass==null) ontClass= this.getOntModel().createClass(URI);
+          return ontClass;
+      }
+
+    public String toRDF(WrappedIndividual wrappedindividual)
+        throws ClassURIException, ResourceNotFoundException, SerializationAnalysisException
+    {
+        OntClass ontClass = (this.getOntModel().getOntClass(URI));
+        if (this.existIndividualSubject(wrappedindividual.getId()) == false) {
+            this.setIndividual(wrappedindividual.getId(), ontClass);
+            {
+                //Variable conversion
+            }
+            return wrappedindividual.getId();
+        } else {
+            throw new SerializationAnalysisException("This id already exist: ");
+        }
+    }
+
+    public static void delete(String uri, String id) throws ResourceNotFoundException, IOException{
+          WrappedIndividualRDF rdfmgt= new WrappedIndividualRDF();
+          rdfmgt.setOntModel(uri);
+          rdfmgt.setIndividual(id,rdfmgt.createClass() );
+          rdfmgt.removeIndividual(id);
+          rdfmgt.putModel();
+      }
+
+    
+}

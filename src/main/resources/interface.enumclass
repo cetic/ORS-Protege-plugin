@@ -1,0 +1,1 @@
+@Type (value = ${interfaceName}Pojo.class, name = "${interfaceName}"),

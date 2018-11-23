@@ -1,0 +1,9 @@
+             case ${OWLClass}:
+             {
+                 ${interfaceName}RDF rdfManager= new ${interfaceName}RDF();
+                 //this.setReplaceMode(replace);
+                 //rdfManager.setOntModel(uri);
+                 idCreated = rdfManager.toRDF(this, (${interfaceName}Pojo) rootClassArgument);
+                 this.commit();
+                 break;
+             }

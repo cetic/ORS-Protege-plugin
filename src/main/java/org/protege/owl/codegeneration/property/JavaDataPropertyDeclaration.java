@@ -1,6 +1,7 @@
 package org.protege.owl.codegeneration.property;
 
 import static org.protege.owl.codegeneration.SubstitutionVariable.PROPERTY_RANGE;
+import static org.protege.owl.codegeneration.SubstitutionVariable.PROPERTY_RANGE_MODEL;
 import static org.protege.owl.codegeneration.SubstitutionVariable.PROPERTY_RANGE_FOR_CLASS;
 
 import java.util.Map;
@@ -49,6 +50,7 @@ public class JavaDataPropertyDeclaration implements JavaPropertyDeclaration {
 	public void configureSubstitutions(Map<SubstitutionVariable, String> substitutions) {
         substitutions.put(PROPERTY_RANGE_FOR_CLASS, getDataPropertyRangeForClass());
         substitutions.put(PROPERTY_RANGE, getDataPropertyRange());
+        substitutions.put(PROPERTY_RANGE_MODEL, getDataPropertyRangeModel());
 	}
 	
 
@@ -60,6 +62,23 @@ public class JavaDataPropertyDeclaration implements JavaPropertyDeclaration {
 	private String getDataPropertyRangeForClass() {
 	    OWLDatatype  dt = inference.getRange(owlClass, property);
 	    return getDataPropertyJavaName(dt);
+	}
+
+    // This is a hack. change to correctly substituting model pojos
+	private String getDataPropertyRangeModel() {
+	    OWLDatatype  dt = inference.getRange(property);
+	    String javadt= getDataPropertyJavaNameModel(dt);
+        if (javadt.equals("Integer")) return "Int";
+        return javadt;
+	}
+	private String getDataPropertyJavaNameModel(OWLDatatype dt) {
+	    String dataPropertyRange = null;
+	    if (dt == null) {
+	        dataPropertyRange = Constants.UNKNOWN_JAVA_DATA_TYPE_MODEL;
+	    } else {
+	        dataPropertyRange = getOwlDataTypeAsJavaClassString(dt);
+	    }
+	    return dataPropertyRange;
 	}
 
 	/**
@@ -76,6 +95,7 @@ public class JavaDataPropertyDeclaration implements JavaPropertyDeclaration {
 	    }
 	    return dataPropertyRange;
 	}
+
 	
 	/*
 	 * Synchronize this with CodeGeneratorInference implementations.

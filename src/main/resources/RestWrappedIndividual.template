@@ -1,0 +1,121 @@
+package ${package}.rs;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
+import ${package}.manager.StorageManager;
+import ${package}.model.SerializerManager;
+import be.cetic.ors.ontologybinding.generic.exception.BadRequestException;
+import be.cetic.ors.ontologybinding.generic.exception.ClassURIException;
+import be.cetic.ors.ontologybinding.generic.exception.SerializationAnalysisException;
+import be.cetic.ors.ontologybinding.generic.query.schema.Query;
+//import be.cetic.ors.owl.codegeneration.WrappedIndividual;
+//import ${package}.pojo.WrappedIndividual;
+ import org.protege.owl.codegeneration.WrappedIndividual;
+
+
+/**
+ * Generated class.
+ */
+@Path("/WrappedIndividual")
+public class RestWrappedIndividual {
+    public static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("RestWrappedIndividual");
+
+    @Path("/")
+    @POST
+    @Consumes("application/json")
+     public javax.ws.rs.core.Response registerWrappedIndividual(WrappedIndividual wrappedindividual,
+         @QueryParam("uri")
+         @DefaultValue("")
+         String uri) {
+         try {
+             StorageManager storageManager = new StorageManager(uri);
+             String identifiant = storageManager.rdfStoreWrappedIndividual(wrappedindividual);
+             return javax.ws.rs.core.Response.created(new URI(identifiant)).build();
+
+        } catch (final IOException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final URISyntaxException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }/* catch (final BadRequestException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }*/ catch (final SerializationAnalysisException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final ClassURIException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final Exception e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+
+    @Path("/query")
+    @PUT
+    @Consumes("application/json")
+    @Produces("application/json")
+    public javax.ws.rs.core.Response queryWrappedIndividual(Query query) {
+        ArrayList<RestWrappedIndividual> uris = new ArrayList<RestWrappedIndividual>();
+        try {
+            return javax.ws.rs.core.Response.ok(uris).build();
+        } catch (final Exception e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+
+    @Path("/")
+    @GET
+    @Consumes("application/json")
+    public javax.ws.rs.core.Response getWrappedIndividuals(
+     @QueryParam("uri")
+         @DefaultValue("")
+         String uri,
+         @QueryParam("id")
+         String id) {
+         try {
+             //StorageManager storageManager = new StorageManager(uri);
+             //ArrayList<WrappedIndividual> entityList = storageManager.rdfRetrieveWrappedIndividuals(uri, id);
+             SerializerManager sm = new SerializerManager(uri);
+             ArrayList<WrappedIndividual> entityList = sm.WrappedIndividualToModel(id);
+
+             GenericEntity<ArrayList<WrappedIndividual>>generic = new GenericEntity<ArrayList<WrappedIndividual>>(entityList) {
+             }
+             ;
+             return javax.ws.rs.core.Response.ok(generic, "application/json").build();
+        } catch (final IOException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final URISyntaxException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final BadRequestException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final SerializationAnalysisException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final ClassURIException e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        } catch (final Exception e) {
+            logger.log(Level.WARNING, "Error", e);
+            return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+}

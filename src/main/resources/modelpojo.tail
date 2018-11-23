@@ -1,0 +1,5 @@
+    superinstance.getType().removeAll(instance.getType());
+    instance.getType().addAll(superinstance.getType());
+    return instance;
+    }
+}

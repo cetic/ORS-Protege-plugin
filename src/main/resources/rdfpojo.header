@@ -1,0 +1,65 @@
+package ${package}.rdf;
+ 
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Collection;
+import org.protege.owl.codegeneration.WrappedIndividual;
+import org.protege.owl.codegeneration.pojo.WrappedIndividualPojo;
+import be.cetic.ors.ontologybinding.generic.exception.ClassURIException;
+import be.cetic.ors.ontologybinding.generic.exception.ResourceNotFoundException;
+import be.cetic.ors.ontologybinding.generic.exception.SerializationAnalysisException;
+import ${package}.pojo.*;
+import ${package}.*;
+import ${package}.manager.StorageManager;
+import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.rdf.model.RDFNode;
+
+
+import java.net.URI;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+
+ 
+ /**
+  * Generated class.
+  */
+ public class ${interfaceName}RDF
+ {
+     public final String URI = "${classIri}";
+ 
+     /**
+      * Creates a new ${pojoName}RDF.
+      */
+     public ${interfaceName}RDF()
+         throws IOException
+     {
+     }
+
+  /*   public static void delete(String uri, String id) throws ResourceNotFoundException, IOException{
+         ${interfaceName}RDF rdfmgt= new ${interfaceName}RDF();
+         rdfmgt.setOntModel(uri);
+         rdfmgt.setIndividual(id,rdfmgt.createClass() );
+         rdfmgt.removeIndividual(id);
+         rdfmgt.putModel();
+     }
+   
+     //Get or Create class
+     public OntClass createClass(){
+         OntClass ontClass = (this.getOntModel().getOntClass(URI));
+         if (ontClass==null) ontClass= this.getOntModel().createClass(URI);
+         return ontClass;
+     }      
+     */
+ 
+     public String toRDF(StorageManager mgt, ${pojoName} pojo) //renamed this to mgt
+         throws ClassURIException, ResourceNotFoundException, SerializationAnalysisException
+         {
+             OntClass ontClass = mgt.createClass(URI);
+             //StorageManager storageManager = new StorageManager();
+             Boolean storeState=mgt.getReplaceMode();
+             if (mgt.existIndividualSubject(pojo.getId()) == false || mgt.getReplaceMode() ) {
+                 mgt.setIndividual(pojo.getId(), ontClass);
+                 {
+                     //Variable conversion

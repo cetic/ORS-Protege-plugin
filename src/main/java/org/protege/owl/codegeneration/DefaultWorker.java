@@ -106,6 +106,16 @@ public class DefaultWorker implements Worker {
         pojoFile.mkdirs();
         File nsFile = new File(packageFile, "namespace");
         nsFile.mkdirs();
+        File schemaFile = new File(packageFile, "schema");
+        schemaFile.mkdirs();
+        File appconfFile = new File(packageFile, "rs");
+        appconfFile.mkdirs();
+        File managerFile = new File(packageFile, "manager");
+        managerFile.mkdirs();
+        File modelFile = new File(packageFile, "model");
+        modelFile.mkdirs();
+        File rdfFile = new File(packageFile, "rdf");
+        rdfFile.mkdirs();
         String subPackage = options.getFactorySubPackage();
         String subPackagePath = subPackage.replace('.', '/');
         File factoryDirectory = new File(packageFile, subPackagePath);
@@ -124,12 +134,40 @@ public class DefaultWorker implements Worker {
     
     public File getPOJOFile(OWLClass owlClass) {
         String pojoName = names.getPOJOName(owlClass);
-        return getPOJOFile(pojoName);
+        return getANYPOJOFile(pojoName, "pojo");
+    }
+
+    public File getRSPOJOFile(OWLClass owlClass) {
+        String pojoName = names.getRSPOJOName(owlClass);
+        return getANYPOJOFile(pojoName, "rs");
     }
     
+    public File getRDFPOJOFile(OWLClass owlClass) {
+        String pojoName = names.getRDFPOJOName(owlClass);
+        return getANYPOJOFile(pojoName, "rdf");
+    }
+
+    public File getMODELPOJOFile(OWLClass owlClass) {
+        String pojoName = names.getMODELPOJOName(owlClass);
+        return getANYPOJOFile(pojoName, "model");
+    }
+
+    public File getMANAGERPOJOFile(OWLClass owlClass) {
+        String pojoName = names.getMANAGERPOJOName(owlClass);
+        return getANYPOJOFile(pojoName, "manager");
+    }
+
     public File getVocabularyFile() {
     	return new File(options.getOutputFolder(),
     			options.getVocabularyFqn().replace('.', '/') +".java");
+    }
+
+    public File getStorageMgtFile() {
+    	return new File(options.getOutputFolder(), getPack()+"manager/"+ "StorageManager.java");
+    }
+
+    public File getSerializerMgtFile() {
+    	return new File(options.getOutputFolder(), getPack()+"model/"+ "SerializerManager.java");
     }
 
     public File getNamespaceFile() {
@@ -141,6 +179,58 @@ public class DefaultWorker implements Worker {
         }
     	return new File(options.getOutputFolder(),pack+"namespace/"+options.getNamespaceFile());
     }
+
+    public File getAppconfigFile() {
+        String pack = options.getPackage();
+        if (pack != null) {
+            pack = pack.replace('.', '/') + "/";
+        } else {
+            pack = "";
+        }
+    	return new File(options.getOutputFolder(),pack+"rs/"+options.getAppconfigFile());
+    }
+
+    public File getSchemaFile() {
+    	return new File(options.getOutputFolder(),getPack()+"schema/schema.json");
+        /*String pack = options.getPackage();
+        if (pack != null) {
+            pack = pack.replace('.', '/') + "/";
+        } else {
+            pack = "";
+        }
+    	return new File(options.getOutputFolder(),pack+"schema/"+options.getAppconfigFile());
+        */
+    }
+
+    public File getWrappedIndividualFile() {
+    	return new File(options.getOutputFolder(),getPack()+"WrappedIndividual.java");
+    }
+    public File getWrappedIndividualPojoFile() {
+    	return new File(options.getOutputFolder(),getPack()+"pojo/WrappedIndividualPojo.java");
+    }
+    public File getWrappedIndividualRDFFile() {
+    	return new File(options.getOutputFolder(),getPack()+"rdf/WrappedIndividualRDF.java");
+    }
+    public File getRestWrappedIndividualFile() {
+    	return new File(options.getOutputFolder(),getPack()+"rs/RestWrappedIndividual.java");
+    }
+    public File getModelWrappedIndividualFile() {
+    	return new File(options.getOutputFolder(),getPack()+"model/ModelWrappedIndividual.java");
+    }
+    public File getEnumWrappedIndividualFile() {
+    	return new File(options.getOutputFolder(),getPack()+"manager/EnumWrappedIndividual.java");
+    }
+
+    private String getPack(){
+        String pack = options.getPackage();
+        if (pack != null) {
+            pack = pack.replace('.', '/') + "/";
+        } else {
+            pack = "";
+        }
+        return pack;
+    }
+
     
     public File getFactoryFile() {
     	return new File(options.getOutputFolder(),
@@ -181,24 +271,49 @@ public class DefaultWorker implements Worker {
 									   OWLClass owlClass,
 									   OWLEntity owlProperty) {
 		switch (phase) {
+		case CREATE_SCHEMA_FILE:
+		case CREATE_SCHEMA_HEADER:
 		case CREATE_VOCABULARY_HEADER:
+		case CREATE_STORAGEMGT_HEADER:
+		case CREATE_SERIALIZERMGT_HEADER:
 		case CREATE_NAMESPACE_HEADER:
+		case CREATE_APPCONFIG_HEADER:
+		case CREATE_WRAPPEDINDIVIDUAL:
+		case CREATE_WRAPPEDINDIVIDUALRDF:
+		case CREATE_MODELWRAPPEDINDIVIDUAL:
+		case CREATE_RESTWRAPPEDINDIVIDUAL:
+		case CREATE_ENUMWRAPPEDINDIVIDUAL:
 		//	configureCommonSubstitutions(substitutions, owlClass, owlProperty);
         //    break;
 		case CREATE_FACTORY_HEADER:
 			configureCommonSubstitutions(substitutions, owlClass, owlProperty);
 			break;
 		case CREATE_CLASS_VOCABULARY:
+		case CREATE_CLASS_STORAGEMGT:
+		case CREATE_ENUMCLASS_STORAGEMGT:
+		case CREATE_CLASS_SERIALIZERMGT:
 		case CREATE_CLASS_NAMESPACE:
+		case CREATE_CLASS_APPCONFIG:
 		case CREATE_FACTORY_CLASS:
+		case CREATE_SCHEMA_CLASS:
 			configureClassSubstitutions(substitutions, owlClass);
 			break;
 		case CREATE_OBJECT_PROPERTY_VOCABULARY:
 		case CREATE_DATA_PROPERTY_VOCABULARY:
+		//case CREATE_OBJECT_PROPERTY_STORAGEMGT:
+		//case CREATE_DATA_PROPERTY_STORAGEMGT:
 			configurePropertySubstitutions(substitutions, owlProperty);
 			break;
 		case CREATE_INTERFACE_HEADER:
+		case CREATE_INTERFACE_ENUMCLASS:
+		case CREATE_INTERFACE_ENUMTAIL:
 		case CREATE_POJO_HEADER:
+		case CREATE_RSPOJO_HEADER:
+		case CREATE_RDFPOJO_HEADER:
+		case CREATE_MODELPOJO_HEADER:
+		case CREATE_MANAGERPOJO_HEADER:
+		case CREATE_MANAGERPOJO_ENUM:
+		case CREATE_MANAGERPOJO_TAIL:
 		case CREATE_IMPLEMENTATION_HEADER:
 			configureCommonSubstitutions(substitutions, owlClass, owlProperty);
 			configureClassSubstitutions(substitutions, owlClass);
@@ -211,13 +326,26 @@ public class DefaultWorker implements Worker {
 		case CREATE_DATA_PROPERTY_IMPLEMENTATION:
 		case CREATE_FUNCTIONAL_DATA_PROPERTY_IMPLEMENTATION:
 		case CREATE_DATA_PROPERTY_POJO:
+		case CREATE_DATA_PROPERTY_RDFPOJO:
+		case CREATE_DATA_PROPERTY_MODELPOJO:
+        case CREATE_TYPEDDATA_PROPERTY_MODELPOJO:
 		case CREATE_FUNCTIONAL_DATA_PROPERTY_POJO:
+		case CREATE_FUNCTIONAL_DATA_PROPERTY_RDFPOJO:
+		case CREATE_FUNCTIONAL_DATA_PROPERTY_MODELPOJO:
 		case CREATE_OBJECT_PROPERTY_INTERFACE:
 		case CREATE_FUNCTIONAL_OBJECT_PROPERTY_INTERFACE:
 		case CREATE_OBJECT_PROPERTY_POJO:
+		case CREATE_OBJECT_PROPERTY_RDFPOJO:
+		case CREATE_OBJECT_PROPERTY_MODELPOJO:
 		case CREATE_FUNCTIONAL_OBJECT_PROPERTY_POJO:
+		case CREATE_FUNCTIONAL_OBJECT_PROPERTY_RDFPOJO:
+		case CREATE_FUNCTIONAL_OBJECT_PROPERTY_MODELPOJO:
 		case CREATE_OBJECT_PROPERTY_IMPLEMENTATION:
 		case CREATE_FUNCTIONAL_OBJECT_PROPERTY_IMPLEMENTATION:
+		case CREATE_SCHEMA_DATA_PROPERTY:
+		case CREATE_SCHEMA_FUNCTIONAL_DATA_PROPERTY:
+		case CREATE_SCHEMA_OBJECT_PROPERTY:
+		case CREATE_SCHEMA_FUNCTIONAL_OBJECT_PROPERTY:
 			configureClassSubstitutions(substitutions, owlClass);
 			configurePropertySubstitutions(substitutions, owlProperty);
 	        propertyDeclarations.get(owlClass, owlProperty).configureSubstitutions(substitutions);
@@ -229,10 +357,20 @@ public class DefaultWorker implements Worker {
 		case CREATE_FACTORY_TAIL:
 		case CREATE_IMPLEMENTATION_TAIL:
 		case CREATE_POJO_TAIL:
+		case CREATE_RSPOJO_TAIL:
+		case CREATE_RDFPOJO_TAIL:
+		case CREATE_MODELPOJO_TAIL:
 		case CREATE_INTERFACE_TAIL:
 		case CREATE_VOCABULARY_TAIL:
+		case CREATE_SCHEMA_TAIL:
 		case CREATE_NAMESPACE_TAIL:
+		case CREATE_APPCONFIG_TAIL:
+		case CREATE_STORAGEMGT_TAIL:
+		case CREATE_STORAGEMGT_ENUMTAIL:
 			break;
+		case CREATE_SCHEMA_EOF:
+			configureCommonSubstitutions(substitutions, owlClass, owlProperty);
+            break;
 		default:
 			break;
 		}
@@ -256,16 +394,33 @@ public class DefaultWorker implements Worker {
 	private void configureClassSubstitutions(Map<SubstitutionVariable, String> substitutions, 
 											  OWLClass owlClass) {
 		String upperCaseClassName = names.getClassName(owlClass).toUpperCase();
+        String pojoname = names.getPOJOName(owlClass);
+        String rspojoname = names.getRSPOJOName(owlClass);
+        String rdfpojoname = names.getRDFPOJOName(owlClass);
+        String modelpojoname = names.getMODELPOJOName(owlClass);
+        String managerpojoname = names.getMANAGERPOJOName(owlClass);
         substitutions.put(INTERFACE_NAME, names.getInterfaceName(owlClass));
         substitutions.put(IMPLEMENTATION_NAME, names.getImplementationName(owlClass));
-        substitutions.put(POJO_NAME, names.getPOJOName(owlClass));
+        substitutions.put(POJO_NAME, pojoname);
+        substitutions.put(RSPOJO_NAME, rspojoname);
+        substitutions.put(RDFPOJO_NAME,rdfpojoname);
+        substitutions.put(MODELPOJO_NAME, modelpojoname);
+        substitutions.put(MANAGERPOJO_NAME, managerpojoname);
         substitutions.put(JAVADOC, getJavadoc(owlClass));
         substitutions.put(UPPERCASE_CLASS, upperCaseClassName);
         substitutions.put(SubstitutionVariable.VOCABULARY_CLASS, "CLASS_" + upperCaseClassName);
         substitutions.put(CLASS_IRI, owlClass.getIRI().toString());
         substitutions.put(INTERFACE_LIST, getSuperInterfaceList(owlClass));
-        substitutions.put(SUPER_POJO_LIST, getSuperPOJOList(owlClass));
+        substitutions.put(SUPER_POJO_LIST, getSuperPOJOList(owlClass, pojoname, Constants.ABSTRACT_CODE_GENERATOR_INDIVIDUAL_CLASS));
         substitutions.put(SUPER_POJO, getSuperPOJO(owlClass));
+        substitutions.put(SUPER_RSPOJO_LIST, getSuperPOJOList(owlClass, rspojoname, Constants.REST_CODE_GENERATOR_INDIVIDUAL_CLASS));
+        substitutions.put(SUPER_RSPOJO, getSuperRSPOJO(owlClass));
+        substitutions.put(SUPER_RDFPOJO_LIST, getSuperPOJOList(owlClass, rdfpojoname, Constants.RDF_CODE_GENERATOR_INDIVIDUAL_CLASS));
+        substitutions.put(SUPER_RDFPOJO, getSuperRDFPOJO(owlClass));
+        substitutions.put(SUPER_MODELPOJO_LIST, getSuperPOJOList(owlClass, modelpojoname, Constants.MODEL_CODE_GENERATOR_INDIVIDUAL_CLASS));
+        substitutions.put(SUPER_MODELPOJO, getSuperMODELPOJO(owlClass));
+        substitutions.put(SUPER_MANAGERPOJO_LIST, getSuperPOJOList(owlClass, managerpojoname, Constants.MANAGER_CODE_GENERATOR_INDIVIDUAL_CLASS));
+        substitutions.put(SUPER_MANAGERPOJO, getSuperMANAGERPOJO(owlClass));
     }
 
 	private void configurePropertySubstitutions(Map<SubstitutionVariable, String> substitutions,
@@ -330,29 +485,92 @@ public class DefaultWorker implements Worker {
             } 
         }
         if (basePOJOString.equals("")) 
-	    	return Constants.ABSTRACT_CODE_GENERATOR_INDIVIDUAL_CLASS;
+	    	return Constants.POJO_CODE_GENERATOR_INDIVIDUAL_CLASS;
         return basePOJOString;
 	}
 
-	private String getSuperPOJOList(OWLClass owlClass) {
-	    String base = getBasePOJO(owlClass);
+	private String getSuperPOJOList(OWLClass owlClass, String name, String defInd) {
+	    String base = getBasePOJO(owlClass, name);
 	    if (base == null) {
-	    	return Constants.ABSTRACT_CODE_GENERATOR_INDIVIDUAL_CLASS;
+	    	return defInd; //Constants.ABSTRACT_CODE_GENERATOR_INDIVIDUAL_CLASS;
 	    }
 	    else {
 	    	return base;
 	    }
 	}
+
+	private String getSuperRSPOJO(OWLClass owlClass) {
+        String basePOJOString = "";
+        if (!inference.getSuperClasses(owlClass).isEmpty()){
+            OWLClass superClass = (OWLClass)inference.getSuperClasses(owlClass).toArray()[0];
+            if (inference.getOwlClasses().contains(superClass)) {
+                basePOJOString = names.getRSPOJOName(superClass);
+            } 
+        }
+        if (basePOJOString.equals("")) 
+	    	return Constants.REST_CODE_GENERATOR_INDIVIDUAL_CLASS;
+        return basePOJOString;
+	}
+
+	private String getSuperRDFPOJO(OWLClass owlClass) {
+        String basePOJOString = "";
+        if (!inference.getSuperClasses(owlClass).isEmpty()){
+            OWLClass superClass = (OWLClass)inference.getSuperClasses(owlClass).toArray()[0];
+            if (inference.getOwlClasses().contains(superClass)) {
+                basePOJOString = names.getRDFPOJOName(superClass);
+            } 
+        }
+        if (basePOJOString.equals("")) 
+	    	return Constants.RDF_CODE_GENERATOR_INDIVIDUAL_CLASS;
+        return basePOJOString;
+	}
+
+	private String getSuperMODELPOJO(OWLClass owlClass) {
+        String basePOJOString = "";
+        if (!inference.getSuperClasses(owlClass).isEmpty()){
+            OWLClass superClass = (OWLClass)inference.getSuperClasses(owlClass).toArray()[0];
+            if (inference.getOwlClasses().contains(superClass)) {
+                basePOJOString = names.getMODELPOJOName(superClass);
+            } 
+        }
+        if (basePOJOString.equals("")) 
+	    	return Constants.MODEL_CODE_GENERATOR_INDIVIDUAL_CLASS;
+        return basePOJOString;
+	}
+
+	private String getSuperMANAGERPOJO(OWLClass owlClass) {
+        String basePOJOString = "";
+        if (!inference.getSuperClasses(owlClass).isEmpty()){
+            OWLClass superClass = (OWLClass)inference.getSuperClasses(owlClass).toArray()[0];
+            if (inference.getOwlClasses().contains(superClass)) {
+                basePOJOString = names.getMANAGERPOJOName(superClass);
+            } 
+        }
+        if (basePOJOString.equals("")) 
+	    	return Constants.MANAGER_CODE_GENERATOR_INDIVIDUAL_CLASS;
+        return basePOJOString;
+	}
+
+
+	/*private String getSuperRSPOJOList(OWLClass owlClass) {
+	    String base = getBasePOJO(owlClass, names.getRSPOJOName(superClass));
+	    if (base == null) {
+	    	return Constants.REST_CODE_GENERATOR_INDIVIDUAL_CLASS;
+	    }
+	    else {
+	    	return base;
+	    }
+	}*/
 	
     /** Returns base pojo of the provided OWLClass
      * @param owlClass The OWLClass whose superclass is to be returned
      * @return
      */
-    private String getBasePOJO(OWLClass owlClass) {
+    private String getBasePOJO(OWLClass owlClass, String name) {
         String basePOJOString = "";
         for (OWLClass superClass : inference.getSuperClasses(owlClass)) {
             if (inference.getOwlClasses().contains(superClass)) {
-                basePOJOString += (basePOJOString.equals("") ? "" : ", ") + names.getPOJOName(superClass);
+                basePOJOString += (basePOJOString.equals("") ? "" : ", ") + name; //names.getPOJOName(superClass);
             }
         }
         if (basePOJOString.equals("")) {
@@ -361,6 +579,21 @@ public class DefaultWorker implements Worker {
             return basePOJOString;
         }
     }
+
+    /*
+    private String getBaseRSPOJO(OWLClass owlClass) {
+        String baseRSPOJOString = "";
+        for (OWLClass superClass : inference.getSuperClasses(owlClass)) {
+            if (inference.getOwlClasses().contains(superClass)) {
+                baseRSPOJOString += (baseRSPOJOString.equals("") ? "" : ", ") + names.getRSPOJOName(superClass);
+            }
+        }
+        if (baseRSPOJOString.equals("")) {
+            return null;
+        } else {
+            return baseRSPOJOString;
+        }
+    }*/
 
     /** Returns base interface of the provided OWLClass
      * @param owlClass The OWLClass whose base interface is to be returned
@@ -390,14 +623,20 @@ public class DefaultWorker implements Worker {
 	    return new File(options.getOutputFolder(), pack + "impl/" + implName + ".java");
 	}
 
-	private File getPOJOFile(String pojoName) {
+	private File getANYPOJOFile(String pojoName, String dir) {
 	    String pack = options.getPackage();
 	    if (pack != null) {
 	        pack = pack.replace('.', '/') + "/";
 	    } else {
 	        pack = "";
 	    }
-	    return new File(options.getOutputFolder(), pack + "pojo/" + pojoName + ".java");
+	    if (dir != null) {
+	        if (!dir.endsWith("/")) 
+	            dir = dir+"/";
+	    } else {
+            dir="";
+	    }
+	    return new File(options.getOutputFolder(), pack + dir + pojoName + ".java");
 	}
 	
 	private String getJavadoc(OWLEntity e) {

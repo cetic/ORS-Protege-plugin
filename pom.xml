@@ -10,7 +10,7 @@
 
 	<groupId>edu.stanford.protege</groupId>
 	<artifactId>code-generation-ORS</artifactId>
-	<version>0.1</version>
+	<version>0.3</version>
 	<packaging>bundle</packaging>
 
 	<name>OWL Code Generation Plug-in</name>
@@ -53,6 +53,7 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>net.sourceforge.cobertura</groupId>
 			<artifactId>cobertura</artifactId>
@@ -109,6 +110,92 @@
 			<version>6.8.21</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>be.cetic.ors</groupId>
+            <artifactId>ORS</artifactId>
+            <version>0.4</version>
+			<scope>test</scope>
+            <exclusions>
+                <exclusion>  
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+
+
+        <!-- Jena -->
+          <dependency>
+             <groupId>org.apache.jena</groupId>
+             <artifactId>jena-core</artifactId>
+             <version>3.7.0</version>
+         </dependency>
+         <dependency>
+             <groupId>org.apache.jena</groupId>
+             <artifactId>jena-arq</artifactId>
+             <version>3.7.0</version>
+         </dependency>
+         <!--dependency>
+             <groupId>org.apache.jena</groupId>
+             <artifactId>jena-tdb2</artifactId>
+             <version>3.7.0</version>
+         </dependency-->
+
+         <!-- Rest Interface -->
+             <!-- jersey 2 http://stackoverflow.com/questions/22022114/org-glassfish-jersey-servlet-servletcontainer-     classnotfoundexception -->
+         <!--dependency> 
+             <groupId>org.glassfish.jersey.containers</groupId>
+             <artifactId>jersey-container-servlet</artifactId>
+             <version>2.27</version>
+         </dependency-->
+         <dependency>
+             <groupId>org.glassfish.jersey.media</groupId>
+             <artifactId>jersey-media-multipart</artifactId>
+             <version>2.27</version>
+         </dependency>
+         <dependency>
+             <groupId>org.glassfish.jersey.media</groupId>
+             <artifactId>jersey-media-json-jackson</artifactId>
+             <version>2.27</version>
+         </dependency>
+         <!--dependency>
+              <groupId>org.glassfish.jersey.inject</groupId>
+              <artifactId>jersey-hk2</artifactId>
+              <version>2.27</version>
+          </dependency-->
+          <dependency>
+             <groupId>org.apache.velocity</groupId>
+             <artifactId>velocity</artifactId>
+             <version>1.7</version>
+         </dependency>
+
+         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+<!-- dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.9.6</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.9.6</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.9.6</version>
+</dependency -->
+
+        <!--SWAGGER -->
+          <dependency>
+             <groupId>io.swagger.core.v3</groupId>
+             <artifactId>swagger-jaxrs2</artifactId>
+             <version>2.0.2</version>
+         </dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -122,6 +209,30 @@
                 <target>1.8</target>
               </configuration>
             </plugin>
+
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-assembly-plugin</artifactId>
+                 <executions>
+                     <execution>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>single</goal>
+                         </goals>
+                         <configuration>
+                             <archive>
+                                 <manifest>
+                                     <mainClass>org.protege.owl.codegeneration.main.GenerateSimpleJavaCode</mainClass>
+                                 </manifest>
+                             </archive>
+                             <descriptorRefs>
+                                 <descriptorRef>jar-with-dependencies</descriptorRef>
+                             </descriptorRefs>
+                         </configuration>
+                     </execution>
+                 </executions>
+             </plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -160,24 +271,36 @@
 				<version>3.0.1</version>
 				<extensions>true</extensions>
 					<configuration>
-					<instructions>
-						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
-						<Embed-Dependency>commons-cli</Embed-Dependency>
-						<Excluded-Import>org.protege.owl.codegeneration</Excluded-Import>
-						<Export-Package>
-							!org.protege.owl.codegeneration.test,
-							${project.artifactId}*;version=${project.version},
-							org.protege.owl.codegeneration.*;version=${project.version}
-						</Export-Package>
-						<Import-Package>
-							org.protege.editor.core.*;version="5.2", <!-- equivalent to [5.0,infinity) -->
-							org.protege.editor.owl.*;version="5.2",
-							*
-						</Import-Package>
-						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
-					</instructions>
+                        <instructions>
+                            <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+                            <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+                            <!--Embed-Dependency>*;scope=compile</Embed-Dependency -->
+                            <!--Embed-Transitive>true</Embed-Transitive -->
+                        <Embed-Dependency>commons-cli;scope=compile</Embed-Dependency>
+                        <Excluded-Import>org.protege.owl.codegeneration</Excluded-Import>
+                        <Export-Package>
+                            !org.protege.owl.codegeneration.test,
+                            ${project.artifactId}*;version=${project.version},
+                            org.protege.owl.codegeneration.*;version=${project.version}
+                        </Export-Package>
+                        <Import-Package>
+                            org.protege.editor.core.*;version="5.2", <!-- equivalent to [5.0,infinity) -->
+                            org.protege.editor.owl.*;version="5.2",
+                            *
+                        </Import-Package>
+                        <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+                    </instructions>
 				</configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>
+                        ${project.build.directory}
+                    </outputDirectory>
+                </configuration>
             </plugin>
 
             <plugin>

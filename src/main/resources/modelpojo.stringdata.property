@@ -1,0 +1,4 @@
+         RDFNode ${owlProperty} = individual.getPropertyValue(ont.createOntProperty("${propertyIri}"));
+         if (${owlProperty}!= null) {
+             instance.set${OwlProperty}(${owlProperty}.toString());
+         }

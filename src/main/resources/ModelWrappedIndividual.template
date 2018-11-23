@@ -1,0 +1,80 @@
+package ${package}.model;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.ArrayList;
+import org.protege.owl.codegeneration.WrappedIndividual;
+import org.protege.owl.codegeneration.pojo.WrappedIndividualPojo;
+//import ${package}.pojo.WrappedIndividual;
+import org.apache.jena.ontology.Individual;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.rdf.model.RDFVisitor;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.AnonId;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.NodeIterator;
+
+
+
+/**
+ * Generated class.
+ */
+public class ModelWrappedIndividual {
+    protected Individual individual;
+    public final static String URI = "${namespace}WrappedIndividual";
+    public static java.util.logging.Logger logger = java.util.logging.Logger.getLogger("ModelWrappedIndividual");
+
+    /**
+     * Creates a new ModelWrappedIndividual.
+     */
+    public ModelWrappedIndividual(Individual idv)
+        throws IOException
+    {
+        individual = idv;
+    }
+
+    public WrappedIndividualPojo toModel()
+        throws IOException
+    {
+        OntModel ont = individual.getOntModel();
+        WrappedIndividualPojo instance= new WrappedIndividualPojo();
+        instance.setId(individual.getURI());
+
+        RDFVisitor rdfVisitor = new RDFVisitor() {
+
+            @Override
+                public Object visitURI(Resource r, String uri) {
+                    logger.info("RDFVisitor ----> "+uri);
+                    return uri;
+                }
+
+            @Override
+                public Object visitLiteral(Literal l) {
+                    logger.info("RDFVisitor ----> "+l);
+                    return l.getLexicalForm();
+                }
+
+            @Override
+                public Object visitBlank(Resource r, AnonId id) {
+                    logger.info("RDFVisitor ----> blank node "+id);
+                    return id.getLabelString();
+                }
+        };
+
+        NodeIterator typeIter = individual.listPropertyValues(
+               ont.createOntProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+           while (typeIter.hasNext()){
+               try{
+                   RDFNode node=typeIter.next();
+                   Object v= node.visitWith(rdfVisitor);
+                   logger.info ("got type: "+v);
+                   instance.getType().add(v.toString());
+              } catch (final Exception ex) {
+                  logger.info( "Error "+ ex);
+              }
+           }
+
+        return instance;
+    }
+}

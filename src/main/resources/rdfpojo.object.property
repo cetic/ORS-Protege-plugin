@@ -1,0 +1,15 @@
+                 Collection <${propertyRange}> ${owlProperty}s= pojo.get${OwlProperty}();
+                 OntProperty property4${owlProperty} = mgt.getPropertyByName(ontClass, "${owlProperty}");
+                 if(mgt.getReplaceMode()) mgt.resetObjectProperty(property4${owlProperty});
+                 for (${propertyRange} ${owlProperty}Obj: ${owlProperty}s){
+                     mgt.setReplaceMode(true);
+                     try{
+                         mgt.rdfStore${propertyRange}(${owlProperty}Obj );
+                     } catch (Exception e){
+                         throw new ResourceNotFoundException(e.getMessage());
+                     }
+                     mgt.setIndividual(pojo.getId(), ontClass);
+                     mgt.setReplaceMode(storeState);
+                     mgt.addObjectProperty(property4${owlProperty}, ${owlProperty}Obj.getId());
+
+                 }

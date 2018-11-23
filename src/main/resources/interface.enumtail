@@ -1,0 +1,14 @@
+    @Type (value = ${interfaceName}Pojo.class, name = "${interfaceName}")
+})
+public interface ${interfaceName} extends ${superInterfaces} {
+
+
+     public String getId();
+
+
+     public void setId(String newId);
+ 
+
+     public String getTypeClass();
+
+     public void setTypeClass(String t);

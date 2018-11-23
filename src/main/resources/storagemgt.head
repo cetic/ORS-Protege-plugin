@@ -1,0 +1,82 @@
+package ${package}.manager;
+
+import java.util.ArrayList;
+import ${package}.model.SerializerManager;
+import ${package}.pojo.*;
+import ${package}.*;
+import ${package}.rdf.*;
+import org.protege.owl.codegeneration.WrappedIndividual;
+import be.cetic.ors.ontologybinding.generic.ToDBManager;
+import be.cetic.ors.ontologybinding.generic.exception.ClassURIException;
+import be.cetic.ors.ontologybinding.generic.exception.ResourceNotFoundException;
+import be.cetic.ors.ontologybinding.generic.exception.SerializationAnalysisException;
+
+import org.apache.jena.ontology.OntClass;
+/* import org.apache.jena.ontology.OntProperty;
+ import org.apache.jena.graph.NodeFactory;
+ import org.apache.jena.rdf.model.RDFNode;
+*/
+
+
+import java.io.IOException;
+
+/**
+ * Generated class.
+ */
+public class StorageManager extends be.cetic.ors.ontologybinding.generic.ToDBManager {
+
+
+  public StorageManager()
+          throws IOException
+      {
+      }
+
+      public StorageManager(String uri)
+          throws IOException, ResourceNotFoundException
+      {
+          super(uri);
+      }
+
+    //Get or Create class
+    public OntClass createClass(String clsUri){
+        OntClass ontClass = (this.getOntModel().getOntClass(clsUri));
+        if (ontClass==null) ontClass= this.getOntModel().createClass(clsUri);
+        return ontClass;
+    }
+
+/*    public ArrayList<WrappedIndividual> rdfRetrieveWrappedIndividuals(String uri, String id)
+        throws Exception
+        {
+            SerializerManager serializerManager = new SerializerManager(uri);
+            return serializerManager.WrappedIndividualToModel(id);
+        }
+*/
+    public void deleteWrappedIndividual(String id) throws Exception {
+        //this.setOntModel(uri);
+        this.setIndividual(id,this.createClass("${classIri}") );//replace this with something that uses only the id
+        this.removeIndividual(id);
+         this.putModel();
+        //WrappedIndividualRDF.delete(id);
+    }
+
+    public String rdfStoreWrappedIndividual(WrappedIndividual rootClassArgument)
+        throws ResourceNotFoundException, IOException, ClassURIException, SerializationAnalysisException
+        {
+            String idCreated;
+            idCreated = "Error";
+            EnumWrappedIndividual enumVar = EnumWrappedIndividual.getResourceByClassName(rootClassArgument.getClass().getName());
+            switch (enumVar) {
+                case WRAPPEDINDIVIDUAL:
+                    {
+                        WrappedIndividual subClassVar = ((WrappedIndividual) rootClassArgument);
+                        WrappedIndividualRDF rdfManager = new WrappedIndividualRDF();
+                        //rdfManager.setOntModel(uri);
+                        idCreated = rdfManager.toRDF(subClassVar);
+                        rdfManager.commit();
+                        break;
+                    }
+            }
+            return idCreated;
+        }
+
+

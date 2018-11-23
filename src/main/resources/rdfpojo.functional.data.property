@@ -1,0 +1,4 @@
+                 OntProperty property4${owlProperty} = mgt.getPropertyByName(ontClass, "${owlProperty}");
+                 mgt.setLiteralProperty(property4${owlProperty}, 
+                    Objects.toString(pojo.get${OwlProperty}(), ""));  
+

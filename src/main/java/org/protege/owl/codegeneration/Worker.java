@@ -33,14 +33,34 @@ public interface Worker {
 	File getInterfaceFile(OWLClass c);
 
 	File getPOJOFile(OWLClass c);
+
+	File getRSPOJOFile(OWLClass c);
+	File getRDFPOJOFile(OWLClass c);
+	File getMODELPOJOFile(OWLClass c);
+	File getMANAGERPOJOFile(OWLClass c);
 	
 	File getImplementationFile(OWLClass c);
 	
 	File getVocabularyFile();
 
+	File getSchemaFile();
+
+	File getStorageMgtFile();
+
+    File getSerializerMgtFile();
+
 	File getNamespaceFile();
+
+	File getAppconfigFile();
 	
 	File getFactoryFile();
+
+	File getWrappedIndividualFile();
+	File getWrappedIndividualPojoFile();
+	File getWrappedIndividualRDFFile();
+	File getRestWrappedIndividualFile();
+	File getModelWrappedIndividualFile();
+	File getEnumWrappedIndividualFile();
 	
 	void configureSubstitutions(CodeGenerationPhase phase,
 			                    Map<SubstitutionVariable, String> substitutions,

@@ -1,0 +1,23 @@
+package org.protege.owl.codegeneration;
+
+import java.util.Collection;
+
+/**
+ * @author z.khan
+ * 
+ */
+public interface WrappedIndividual  {
+ 
+    
+      public String getId();
+
+
+      public void setId(String newId);
+
+
+      public Collection<String> getType();
+
+      public void setType(Collection<String> type);
+
+
+}

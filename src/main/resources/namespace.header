@@ -7,7 +7,7 @@ pojo_directory = generated_pojos
 query_directory = generated_query
 target_directory = generated_model/src/main/java
 
-target_package = be.cetic.ors.ontologybinding.generated
+target_package = ${package}.generated
 
 serialization = application/json
 #serialization = application/xml

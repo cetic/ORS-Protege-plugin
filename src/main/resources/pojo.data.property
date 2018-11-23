@@ -3,16 +3,17 @@
      * Data Property ${propertyIri}
      * Range: ${propertyRange}
      * Range for class: ${propertyRangeForClass}
+     * Range for Model: ${propertyRangeModel}
      * Range for impl: ${propertyRangeImplementation}
      */
      
-    ${propertyRangeForClass} ${owlProperty};
+    Collection<${propertyRangeForClass}> ${owlProperty} = new ArrayList<${propertyRangeForClass}>();
 
-    public ${propertyRangeForClass} get${OwlProperty}() {
+    public Collection<${propertyRangeForClass}> get${OwlProperty}() {
 		return this.${owlProperty};
     }
 
-    public void  set${OwlProperty}(${propertyRangeForClass} value) {
+    public void  set${OwlProperty}(Collection<${propertyRangeForClass}> value) {
 		this.${owlProperty}=value;
     }
 

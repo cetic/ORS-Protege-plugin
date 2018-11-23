@@ -2,13 +2,15 @@
     /* ***************************************************
      * Object Property ${propertyIri}
      */
-    ${propertyRange} ${owlProperty};
 
-    public ${propertyRange} get${OwlProperty}() {
+    Collection<${propertyRange}> ${owlProperty}; 
+    public Collection<${propertyRange}> get${OwlProperty}() {
+        if (this.${owlProperty}==null)
+            this.${owlProperty} =new ArrayList<>();
         return this.${owlProperty};
     }
 
-    public void set${OwlProperty}(${propertyRange} value) {
+    public void set${OwlProperty}(Collection<${propertyRange}> value) {
          this.${owlProperty}=value;
     }
 

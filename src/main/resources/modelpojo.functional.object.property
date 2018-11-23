@@ -1,0 +1,7 @@
+         RDFNode ${owlProperty} = individual.getPropertyValue(ont.createOntProperty("${propertyIri}"));
+         if (${owlProperty}!= null) {
+             Resource rs = ${owlProperty}.asResource();
+             Individual ind = ont.getIndividual(rs.getURI());
+             Model${propertyRange} obj = new Model${propertyRange}(ind);
+             instance.set${OwlProperty}(obj.toModel());
+         }

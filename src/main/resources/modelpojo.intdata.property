@@ -1,0 +1,9 @@
+         RDFNode ${owlProperty} = individual.getPropertyValue(ont.createOntProperty("${propertyIri}"));
+         if (${owlProperty}!= null) {
+             try {
+                 instance.set${OwlProperty}(${owlProperty}.asLiteral().getInt());
+             } catch (final Exception ex) {
+                 logger.log(Level.WARNING, "Error ", ex);
+             }
+         }
+

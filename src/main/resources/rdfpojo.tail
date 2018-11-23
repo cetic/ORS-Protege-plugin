@@ -1,0 +1,7 @@
+             }
+             return pojo.getId();
+         } else {
+             throw new SerializationAnalysisException("This id already exist: ");
+         }
+     }
+ }

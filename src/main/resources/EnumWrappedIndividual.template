@@ -1,0 +1,43 @@
+package ${package}.manager;
+
+import be.cetic.ors.ontologybinding.generic.exception.ResourceNotFoundException;
+
+/**
+ * Generated class.
+ */
+public enum EnumWrappedIndividual {
+    //WRAPPEDINDIVIDUAL("${namespace}WrappedIndividual", "be.cetic.ors.owl.codegeneration.WrappedIndividual", "WrappedIndividual");
+    WRAPPEDINDIVIDUAL("${namespace}WrappedIndividual", "${package}.pojo.WrappedIndividual", "WrappedIndividual");
+    private final String uri;
+    private final String className;
+    private final String name;
+
+    private EnumWrappedIndividual(String uri, String className, String name) {
+        this.uri = uri;
+        this.className = className;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public static EnumWrappedIndividual getResourceByClassName(String classPackageName)
+        throws ResourceNotFoundException
+    {
+        for (int i = 0; (i<values().length); i += 1) {
+            if (values()[i].getClassName().equals(classPackageName)) {
+                return values()[i];
+            }
+        }
+        throw new ResourceNotFoundException("The requested resource modelClassPath doesn't exist or is not yet configurated");
+    }
+}
